@@ -18,11 +18,11 @@ groq_api_key = os.getenv('GROQ_API_KEY')
 
 st.title("ChatGroq Demo")
 
-if not os.path.exists("./refdata"):
+if not os.path.exists("./data"):
     st.error("refdata directory not found!")
     st.stop()
 
-pdf_files = [f for f in os.listdir("./refdata") if f.endswith('.pdf')]
+pdf_files = [f for f in os.listdir("./data") if f.endswith('.pdf')]
 if not pdf_files:
     st.error("No PDF files found in refdata directory!")
     st.stop()
@@ -36,7 +36,7 @@ def initialize_vector_store():
     try:
         with st.spinner("Loading documents..."):
             embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-            loader = PyPDFDirectoryLoader("./refdata")
+            loader = PyPDFDirectoryLoader("./data")
             docs = loader.load()
             
             st.write(f"✅ Loaded {len(docs)} documents")
